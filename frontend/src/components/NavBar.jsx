@@ -1,7 +1,9 @@
-// frontend/src/components/NavBar.jsx
 import { motion } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function NavBar({ currentView, setCurrentView }) {
+export default function NavBar() {
+  const location = useLocation(); // Gets the current URL path
+
   return (
     <motion.nav 
       initial={{ y: -50, opacity: 0 }}
@@ -15,26 +17,42 @@ export default function NavBar({ currentView, setCurrentView }) {
         padding: '0 5vw', zIndex: 100,
       }}
     >
-      <div 
-        onClick={() => setCurrentView('home')}
-        style={{ fontWeight: 800, letterSpacing: '2px', color: '#fff', cursor: 'pointer' }}
-      >
-        DEEPDREAM<span style={{ color: '#3c78ff' }}>STUDIO</span>
-      </div>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <div style={{ fontWeight: 800, letterSpacing: '2px', color: '#fff', cursor: 'pointer' }}>
+          DEEPDREAM<span style={{ color: '#3c78ff' }}>STUDIO</span>
+        </div>
+      </Link>
       
       <div style={{ display: 'flex', gap: '30px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-        <span 
-          onClick={() => setCurrentView('home')} 
-          style={{ color: currentView === 'home' ? '#fff' : '#666', cursor: 'pointer', transition: 'color 0.3s' }}
+        <Link 
+          to="/" 
+          style={{ 
+            color: location.pathname === '/' ? '#fff' : '#666', 
+            textDecoration: 'none', transition: 'color 0.3s' 
+          }}
         >
-          The Application
-        </span>
-        <span 
-          onClick={() => setCurrentView('resources')} 
-          style={{ color: currentView === 'resources' ? '#fff' : '#666', cursor: 'pointer', transition: 'color 0.3s' }}
+          Creative Studio
+        </Link>
+
+        <Link 
+          to="/forensics" 
+          style={{ 
+            color: location.pathname === '/forensics' ? '#fff' : '#666', 
+            textDecoration: 'none', transition: 'color 0.3s' 
+          }}
         >
-          Learning & Resources
-        </span>
+          Forensic Lab
+        </Link>
+
+        <Link 
+          to="/resources" 
+          style={{ 
+            color: location.pathname === '/resources' ? '#fff' : '#666', 
+            textDecoration: 'none', transition: 'color 0.3s' 
+          }}
+        >
+          Wiki & Resources
+        </Link>
       </div>
     </motion.nav>
   );
